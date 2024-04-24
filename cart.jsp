@@ -9,13 +9,12 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
-
 <html>
     <head>
         <!-- Your header code here -->
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>My Cart</title>
-        
+        <jsp:include page="includes/header.jsp" />
         <style>
             .green-background {
                 background-color: #82ae46 !important; 
@@ -25,6 +24,7 @@
     </head>
     <body>
         <!-- Your navigation bar code here -->
+        <jsp:include page="includes/navBar.jsp" />
         <div class="hero-wrap hero-bread" style="background-image: url('images/cart.jpg');">
             <div class="container">
                 <div class="row no-gutters slider-text align-items-center justify-content-center">
@@ -50,24 +50,26 @@
                             </tr>
                         </thead>
                         <tbody>
-
-
-                            <tr class="text-center" id="item_">
-                                <td class="product-remove"><a href="./remove-from-cart?id=">x</a></td>
-                                <td class="image-prod"><div class="img" style="background-image:url(./images/cart/.webp);"></div></td>
-                                <td class="product-name"></td>
-                                <td class="price"></td>
+                            <tr class="text-center" id="item_<%= id%>">
+                                <td class="product-remove"><a href="./remove-from-cart?id=<%= id%>">x</a></td>
+                                <td class="image-prod"><div class="img" style="background-image:url(./images/cart/<%= id%>.webp);"></div></td>
+                                <td class="product-name"><%= name%></td>
+                                <td class="price"><%= price%></td>
                                 <td class="quantity">
-                                    <a href="quantity-inc-dec?action=dec&id=&quantity=-1">-  </a><!-- Decrease quantity by 1 -->
-                                   
-                                    <a href="quantity-inc-dec?action=inc&id=&quantity=1">  +</a><!-- Increase quantity by 1 -->
+                                    <a href="quantity-inc-dec?action=dec&id=<%= id%>&quantity=-1">-  </a><!-- Decrease quantity by 1 -->
+                                    <%= quantity%>
+                                    <a href="quantity-inc-dec?action=inc&id=<%= id%>&quantity=1">  +</a><!-- Increase quantity by 1 -->
                                 </td>
-                              </td>
+                                <td class="total" id="total_<%= id%>"><%= total%></td>
                             </tr>
+                            <%
+                                    } while (rs.next());
+                                }
+                            %>
                         </tbody>
                     </table>
                     <div>
-                        <h3>Total: </h3>
+                        <h3>Total: <%= grandTotal%></h3>
                     </div>
                 </div>
             </div>
@@ -120,22 +122,25 @@
         </div>
         <div class="col-lg-4 mt-5 cart-wrap ftco-animate">    
             <div class="cart-total mb-3">
-                
+                <%
+                    int delCharge = 200;
+                    double totalAmount = grandTotal + delCharge;
+                %>
                 <h3>Cart Total</h3>
                 <p class="d-flex">
                     <span>Subtotal</span>
-                    <span>Rs..00</span>
+                    <span>Rs.<%= grandTotal%>.00</span>
                 </p>
                 <p class="d-flex">
                     <span>Delivery</span>
-                    <span>RS.</span>
+                    <span>RS.<%= delCharge%></span>
                 </p>
                 <hr>
                 <p class="d-flex total-price">
                     <span>Total</span>
-                    <span> Total:  </span>
+                    <span> Total: <%= grandTotal + delCharge%> </span>
                 </p>
-                <input type="hidden" name="total_price" value="">
+                <input type="hidden" name="total_price" value="<%= totalAmount%>">
                 <button type="submit" class="btn btn-primary py-3 px-4">Place an order</button>
             </div>
         </div>
@@ -193,5 +198,9 @@
         }
     });
 </script>
+
+<!-- Your footer code here -->
+<jsp:include page="includes/footer.jsp" />
+<jsp:include page="includes/loader.jsp" />
 </body>
 </html>
