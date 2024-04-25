@@ -9,6 +9,16 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
+<%
+    User auth = (User) request.getSession().getAttribute("auth");
+    if (auth != null) {
+        request.setAttribute("auth", auth);
+    }
+    ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart-list");
+    if (cart_list != null) {
+        request.setAttribute("cart_list", cart_list);
+    }
+%>
 <html>
     <head>
         <!-- Your header code here -->
@@ -50,6 +60,26 @@
                             </tr>
                         </thead>
                         <tbody>
+
+                            <%
+                                Connection con = DbConnection.getConnection();
+                                PreparedStatement pst = con.prepareStatement("SELECT id, name, quantity, price FROM products");
+                                ResultSet rs = pst.executeQuery();
+
+                                double grandTotal = 0.0;
+                                if (!rs.next()) {
+                                    out.println("<tr><td colspan='6'>Your cart is empty.</td></tr>");
+                                } else {
+                                    do {
+                                        int id = rs.getInt("id");
+                                        String name = rs.getString("name");
+                                        double price = rs.getDouble("price");
+                                        int quantity = rs.getInt("quantity");
+
+                                        double total = price * quantity;
+                                        grandTotal += total;
+                            %>
+
                             <tr class="text-center" id="item_<%= id%>">
                                 <td class="product-remove"><a href="./remove-from-cart?id=<%= id%>">x</a></td>
                                 <td class="image-prod"><div class="img" style="background-image:url(./images/cart/<%= id%>.webp);"></div></td>
