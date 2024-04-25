@@ -132,9 +132,6 @@ public class ProductsDao {
         }
     }
 
-    // You can update other methods like getTotalCartPrice and getCartProducts similarly
-
-
     private void deleteAllProducts(Connection con) throws SQLException {
         String sql = "DELETE FROM products";
         try (PreparedStatement pst = con.prepareStatement(sql)) {
