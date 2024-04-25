@@ -18,19 +18,6 @@
     <jsp:include page="includes/header.jsp" />
 </head>
 <body>
-<%
-    User auth = (User) request.getSession().getAttribute("auth");
-    if (auth != null) {
-        // If user is already authenticated, redirect to index page
-        response.sendRedirect("index.jsp");
-    } else {
-        // User is not authenticated, continue rendering the sign-up form
-        ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart-list");
-        if (cart_list != null) {
-            request.setAttribute("cart_list", cart_list);
-        }
-%>
-
 <jsp:include page="includes/navBar.jsp" />
 
 <div class="container">
@@ -67,9 +54,6 @@
 <jsp:include page="includes/footer.jsp" />
 <jsp:include page="includes/loader.jsp" />
 
-<%
-    }
-%>
 
 <script>
     document.getElementById('signupForm').addEventListener('submit', function(event) {
