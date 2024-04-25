@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import freshies.model.Order;
+import freshies.model.Product;
 
 public class OrderDao {
 
