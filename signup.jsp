@@ -10,13 +10,28 @@
     <title>Sign Up</title>
     <style>
     .error-message {
-        color: #999; /* Ash color */
-        font-size: 16px; /* Optional: Adjust font size */
+        color: #999; 
+        font-size: 16px; 
     }
 </style>
 
+    <jsp:include page="includes/header.jsp" />
 </head>
 <body>
+<%
+    User auth = (User) request.getSession().getAttribute("auth");
+    if (auth != null) {
+        // If user is already authenticated, redirect to index page
+        response.sendRedirect("index.jsp");
+    } else {
+        // User is not authenticated, continue rendering the sign-up form
+        ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart-list");
+        if (cart_list != null) {
+            request.setAttribute("cart_list", cart_list);
+        }
+%>
+
+<jsp:include page="includes/navBar.jsp" />
 
 <div class="container">
     <div class="card w-50 mx-auto my-5">
@@ -49,6 +64,13 @@
     </div>
 </div>
 
+<jsp:include page="includes/footer.jsp" />
+<jsp:include page="includes/loader.jsp" />
+
+<%
+    }
+%>
+
 <script>
     document.getElementById('signupForm').addEventListener('submit', function(event) {
         var name = document.getElementById('name').value;
@@ -61,7 +83,6 @@
 
         var isValid = true;
 
-        // Name validation
         if (!name.trim()) {
             nameError.innerText = 'Please enter your name.';
             isValid = false;
@@ -72,7 +93,6 @@
             nameError.innerText = '';
         }
 
-        // Email validation
         if (!email.trim()) {
             emailError.innerText = 'Please enter your email.';
             isValid = false;
@@ -83,7 +103,6 @@
             emailError.innerText = '';
         }
 
-        // Password validation
         if (!password.trim()) {
             passwordError.innerText = 'Please enter a password.';
             isValid = false;
