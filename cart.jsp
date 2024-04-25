@@ -9,19 +9,8 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
-<%
-    User auth = (User) request.getSession().getAttribute("auth");
-    if (auth != null) {
-        request.setAttribute("auth", auth);
-    }
-    ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart-list");
-    if (cart_list != null) {
-        request.setAttribute("cart_list", cart_list);
-    }
-%>
 <html>
     <head>
-        <!-- Your header code here -->
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>My Cart</title>
         <jsp:include page="includes/header.jsp" />
@@ -33,7 +22,6 @@
      
     </head>
     <body>
-        <!-- Your navigation bar code here -->
         <jsp:include page="includes/navBar.jsp" />
         <div class="hero-wrap hero-bread" style="background-image: url('images/cart.jpg');">
             <div class="container">
@@ -60,25 +48,6 @@
                             </tr>
                         </thead>
                         <tbody>
-
-                            <%
-                                Connection con = DbConnection.getConnection();
-                                PreparedStatement pst = con.prepareStatement("SELECT id, name, quantity, price FROM products");
-                                ResultSet rs = pst.executeQuery();
-
-                                double grandTotal = 0.0;
-                                if (!rs.next()) {
-                                    out.println("<tr><td colspan='6'>Your cart is empty.</td></tr>");
-                                } else {
-                                    do {
-                                        int id = rs.getInt("id");
-                                        String name = rs.getString("name");
-                                        double price = rs.getDouble("price");
-                                        int quantity = rs.getInt("quantity");
-
-                                        double total = price * quantity;
-                                        grandTotal += total;
-                            %>
 
                             <tr class="text-center" id="item_<%= id%>">
                                 <td class="product-remove"><a href="./remove-from-cart?id=<%= id%>">x</a></td>
@@ -224,12 +193,10 @@
         }
 
         if (!isValid) {
-            event.preventDefault(); // Prevent form submission if validation fails
+            event.preventDefault();
         }
     });
 </script>
-
-<!-- Your footer code here -->
 <jsp:include page="includes/footer.jsp" />
 <jsp:include page="includes/loader.jsp" />
 </body>
