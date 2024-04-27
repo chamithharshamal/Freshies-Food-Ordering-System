@@ -11,6 +11,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>My Cart</title>
         <jsp:include page="includes/header.jsp" />
@@ -22,6 +23,7 @@
      
     </head>
     <body>
+    
         <jsp:include page="includes/navBar.jsp" />
         <div class="hero-wrap hero-bread" style="background-image: url('images/cart.jpg');">
             <div class="container">
@@ -48,6 +50,25 @@
                             </tr>
                         </thead>
                         <tbody>
+
+                            <%
+                                Connection con = DbConnection.getConnection();
+                                PreparedStatement pst = con.prepareStatement("SELECT id, name, quantity, price FROM products");
+                                ResultSet rs = pst.executeQuery();
+
+                                double grandTotal = 0.0;
+                                if (!rs.next()) {
+                                    out.println("<tr><td colspan='6'>Your cart is empty.</td></tr>");
+                                } else {
+                                    do {
+                                        int id = rs.getInt("id");
+                                        String name = rs.getString("name");
+                                        double price = rs.getDouble("price");
+                                        int quantity = rs.getInt("quantity");
+
+                                        double total = price * quantity;
+                                        grandTotal += total;
+                            %>
 
                             <tr class="text-center" id="item_<%= id%>">
                                 <td class="product-remove"><a href="./remove-from-cart?id=<%= id%>">x</a></td>
