@@ -1,6 +1,21 @@
+<%@page import="freshies.dao.OrderDao"%>
+<%@page import="java.sql.SQLException"%>
+<%@page import="java.util.Date"%>
+<%@page import="freshies.model.Order"%>
+<%@page import="freshies.dao.ProductsDao"%>
+<%@page import="java.util.List"%>
+<%@page import="freshies.connection.DbConnection"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="freshies.model.User"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
     <head>
+        <!-- Your header code here -->
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>My Orders</title>
         <jsp:include page="includes/header.jsp" />
@@ -39,21 +54,31 @@
                             </tr>
                         </thead>
                         <tbody>
-          
+                            <% 
+                                OrderDao orderDao = new OrderDao(DbConnection.getConnection());
+                                List<Order> orders = orderDao.getAllOrders();
+                                if (orders.isEmpty()) { // Check if there are no orders
+                            %>
                             <tr class="text-center">
                                 <td colspan="8">No orders yet</td>
                             </tr>
-                            
+                            <% } else { 
+                                for (Order order : orders) { 
+                            %>
                             <tr class="text-center">
-                                <td class="product-remove"><a href="./cancel-order?id=">x</a></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td class="product-remove"><a href="./cancel-order?id=<%= order.getOrderId()%>">x</a></td>
+                                <td><%= order.getOrderId() %></td>
+                                <td><%= order.getName() %></td>
+                                <td><%= order.getAddress() %></td>
+                                <td><%= order.getContactNumber() %></td>
+                                <td><%= order.getTotalPrice() %></td>
+                                <td><%= order.getPaymentMethod() %></td>
+                                <td><%= order.getItems() %></td>
                             </tr>
+                            <% 
+                                } 
+                            } 
+                            %>
                         </tbody>
                     </table>
                 </div>
