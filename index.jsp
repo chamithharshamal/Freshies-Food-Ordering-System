@@ -8,6 +8,18 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
+<%
+    User auth = (User) request.getSession().getAttribute("auth");
+    if (auth != null) {
+        request.setAttribute("person", auth);
+    }
+    ProductsDao pd = new ProductsDao(DbConnection.getConnection());
+    List<Product> products = pd.getAllProducts();
+    ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart-list");
+    if (cart_list != null) {
+        request.setAttribute("cart_list", cart_list);
+    }
+%>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -239,9 +251,7 @@
         <hr>
         <jsp:include page="includes/footer.jsp" />
 
-        <!-- loader -->
        <jsp:include page="includes/loader.jsp" />
-        <!-- Modal -->
         <div class="modal fade" id="mealPlanModal" tabindex="-1" role="dialog" aria-labelledby="mealPlanModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
