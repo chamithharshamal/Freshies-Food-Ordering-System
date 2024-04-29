@@ -11,6 +11,17 @@
         <jsp:include page="includes/header.jsp" />
     </head>
     <body>
+        <%
+            User auth = (User) request.getSession().getAttribute("auth");
+            if (auth != null) {
+                response.sendRedirect("index.jsp");
+            }
+            ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart-list");
+            if (cart_list != null) {
+                request.setAttribute("cart_list", cart_list);
+            }
+        %>
+
         <jsp:include page="includes/navBar.jsp" />
 
         <div class="container">
