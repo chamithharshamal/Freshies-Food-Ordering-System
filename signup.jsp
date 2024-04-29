@@ -18,6 +18,19 @@
     <jsp:include page="includes/header.jsp" />
 </head>
 <body>
+<%
+    User auth = (User) request.getSession().getAttribute("auth");
+    if (auth != null) {
+      
+        response.sendRedirect("index.jsp");
+    } else {
+       
+        ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart-list");
+        if (cart_list != null) {
+            request.setAttribute("cart_list", cart_list);
+        }
+%>
+
 <jsp:include page="includes/navBar.jsp" />
 
 <div class="container">
@@ -54,6 +67,9 @@
 <jsp:include page="includes/footer.jsp" />
 <jsp:include page="includes/loader.jsp" />
 
+<%
+    }
+%>
 
 <script>
     document.getElementById('signupForm').addEventListener('submit', function(event) {
@@ -67,6 +83,7 @@
 
         var isValid = true;
 
+        // Name validation
         if (!name.trim()) {
             nameError.innerText = 'Please enter your name.';
             isValid = false;
@@ -77,6 +94,7 @@
             nameError.innerText = '';
         }
 
+        // Email validation
         if (!email.trim()) {
             emailError.innerText = 'Please enter your email.';
             isValid = false;
@@ -87,6 +105,7 @@
             emailError.innerText = '';
         }
 
+        // Password validation
         if (!password.trim()) {
             passwordError.innerText = 'Please enter a password.';
             isValid = false;
