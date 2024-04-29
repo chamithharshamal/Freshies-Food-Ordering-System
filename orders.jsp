@@ -13,9 +13,15 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
+<%
+    User auth = (User) request.getSession().getAttribute("auth");
+    if (auth != null) {
+        request.setAttribute("auth", auth);
+    }
+%>
+
 <html>
     <head>
-        <!-- Your header code here -->
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>My Orders</title>
         <jsp:include page="includes/header.jsp" />
@@ -57,7 +63,7 @@
                             <% 
                                 OrderDao orderDao = new OrderDao(DbConnection.getConnection());
                                 List<Order> orders = orderDao.getAllOrders();
-                                if (orders.isEmpty()) { // Check if there are no orders
+                                if (orders.isEmpty()) { 
                             %>
                             <tr class="text-center">
                                 <td colspan="8">No orders yet</td>
