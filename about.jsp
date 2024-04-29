@@ -1,9 +1,3 @@
-<%-- 
-    Document   : about
-    Created on : Apr 8, 2024, 1:05:34 AM
-    Author     : Dell
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
