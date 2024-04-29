@@ -3,30 +3,16 @@
 <%@ page import="java.text.*" %>
 <%@ page import="java.net.*" %>
 
-<%
-  HttpSession sessionn = request.getSession();
-  int cartCount = 0;
-
-  if(session.getAttribute("cart") != null && !((Map<String, Integer>)session.getAttribute("cart")).isEmpty()) {
-      Map<String, Integer> cart = (Map<String, Integer>)session.getAttribute("cart");
-      for (Map.Entry<String, Integer> entry : cart.entrySet()) {
-          cartCount += entry.getValue();
-      }
-  }
-%>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us</title>
-        <jsp:include page="includes/header.jsp" />
-    <!-- Include your CSS and JS files here -->
+
 </head>
 <body class="goto-here">
-      <jsp:include page="includes/navBar.jsp" />
-    <!-- END nav -->
+      
 
     <div class="hero-wrap hero-bread"
         style="background-image: url('images/contact.jpg');">
@@ -162,12 +148,6 @@
 				</div>
 			  </div>
 			</div>
-		  </footer>
-    
-  
-
-  <!-- loader -->
-  <jsp:include page="includes/loader.jsp" />
-    
+		  </footer>   
   </body>
 </html>
