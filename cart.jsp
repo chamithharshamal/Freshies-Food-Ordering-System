@@ -9,9 +9,18 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
+<%
+    User auth = (User) request.getSession().getAttribute("auth");
+    if (auth != null) {
+        request.setAttribute("auth", auth);
+    }
+    ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart-list");
+    if (cart_list != null) {
+        request.setAttribute("cart_list", cart_list);
+    }
+%>
 <html>
     <head>
-
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>My Cart</title>
         <jsp:include page="includes/header.jsp" />
@@ -23,7 +32,6 @@
      
     </head>
     <body>
-    
         <jsp:include page="includes/navBar.jsp" />
         <div class="hero-wrap hero-bread" style="background-image: url('images/cart.jpg');">
             <div class="container">
@@ -76,10 +84,9 @@
                                 <td class="product-name"><%= name%></td>
                                 <td class="price"><%= price%></td>
                                 <td class="quantity">
-                                    <a href="quantity-inc-dec?action=dec&id=<%= id%>&quantity=-1">-  </a><!-- Decrease quantity by 1 -->
+                                    <a href="quantity-inc-dec?action=dec&id=<%= id%>&quantity=-1">-  </a>
                                     <%= quantity%>
-                                    <a href="quantity-inc-dec?action=inc&id=<%= id%>&quantity=1">  +</a><!-- Increase quantity by 1 -->
-                                </td>
+                                    <a href="quantity-inc-dec?action=inc&id=<%= id%>&quantity=1">  +</a>
                                 <td class="total" id="total_<%= id%>"><%= total%></td>
                             </tr>
                             <%
@@ -214,10 +221,11 @@
         }
 
         if (!isValid) {
-            event.preventDefault();
+            event.preventDefault(); // Prevent form submission if validation fails
         }
     });
 </script>
+
 <jsp:include page="includes/footer.jsp" />
 <jsp:include page="includes/loader.jsp" />
 </body>
