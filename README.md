@@ -1,6 +1,6 @@
 ### FRESHIES E-Commerce Website 🥗🍔🍳
 
-Welcome to **FRESHIES** - Your one-stop destination for fresh and delicious meals! This project is an E-commerce website developed using Java Enterprise Edition (JEE) for backend, MySQL for database management, and HTML/CSS for the frontend.
+Welcome to **FRESHIES** - Your one-stop destination for fresh and delicious meals! This project is an E-commerce website developed using Java Servelets for backend, MySQL for database management, and HTML/CSS for the frontend.
 
 #### Project Overview 📝
 **FRESHIES** allows users to conveniently book meals for breakfast, lunch, and dinner. Whether you're a vegetarian 🥦 or a non-vegetarian 🍗, we've got you covered with a wide variety of options to choose from.
