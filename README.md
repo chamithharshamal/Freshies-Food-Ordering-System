@@ -49,7 +49,7 @@ Welcome to **FRESHIES** - Your one-stop destination for fresh and delicious meal
 - Maleesha Prasad
 - Janandi Samarawickrama
 - Nethmi Pitawala
-- Ishani 
+- Ishani Rathnayaka
 - Nithma Fernando
   ### FRESHIES E-Commerce Website 🥗🍔🍳
 
