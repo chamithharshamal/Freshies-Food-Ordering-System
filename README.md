@@ -42,7 +42,7 @@ Welcome to **FRESHIES** - Your one-stop destination for fresh and delicious meal
    - Host the HTML/CSS/JSP files on a web server or simply open them in a browser.
 
 #### Contributors 🙌
-- Chamith Harshamal 
+- Chamith Harshamal ([@chamithharshamal])
 - Tharuka Anjana 
 - Nimesh Wickramasinghe ([@alexjohnson](https://github.com/alexjohnson))
 - Chathura Karunaratna
