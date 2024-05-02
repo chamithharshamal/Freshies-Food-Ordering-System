@@ -25,12 +25,10 @@ public class AddMealServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        // Fetch form parameters
         String name = request.getParameter("name");
         String priceStr = request.getParameter("price");
         String category = request.getParameter("category");
 
-        // Convert price string to double
         double price;
         try {
             price = Double.parseDouble(priceStr);
@@ -40,27 +38,26 @@ public class AddMealServlet extends HttpServlet {
             return;
         }
 
-        // Process file upload
         Part filePart = request.getPart("imageFile");
         String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-        String uploadPath = "images";
-        File uploadDir = new File(uploadPath);
-        if (!uploadDir.exists()) {
-            uploadDir.mkdirs();
-        }
 
-        String imagePath = uploadPath + File.separator + fileName;
-        InputStream fileContent = filePart.getInputStream();
-        Files.copy(fileContent, Paths.get(imagePath), StandardCopyOption.REPLACE_EXISTING);
+        String relativeImagePath = "images" + File.separator + fileName;
 
-        // Create a new meal object
         Meal meal = new Meal();
         meal.setName(name);
         meal.setPrice(price);
         meal.setCategory(category);
-        meal.setImage(imagePath);
+        meal.setImage(relativeImagePath);
 
-        // Insert the meal into the database
+        String uploadPath = getServletContext().getRealPath("/images");
+        File uploadDir = new File(uploadPath);
+        if (!uploadDir.exists()) {
+            uploadDir.mkdirs();
+        }
+        String absoluteImagePath = uploadPath + File.separator + fileName;
+        InputStream fileContent = filePart.getInputStream();
+        Files.copy(fileContent, Paths.get(absoluteImagePath), StandardCopyOption.REPLACE_EXISTING);
+
         try {
             MealsDao mealDao = new MealsDao();
             boolean success = mealDao.addMeal(meal);
@@ -74,7 +71,6 @@ public class AddMealServlet extends HttpServlet {
             e.printStackTrace();
         }
 
-        // Forward the request to the admin dashboard
         request.getRequestDispatcher("/dashboard.jsp").forward(request, response);
     }
 
