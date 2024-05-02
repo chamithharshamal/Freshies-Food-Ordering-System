@@ -154,7 +154,7 @@
                 <div class="content">
                     <div class="add-item-panel">
                         <h3>Add a New Meal</h3>
-                       <form method="post" action="AddMealServlet" enctype="multipart/form-data">
+                        <form method="post" action="AddMealServlet" enctype="multipart/form-data">
                             <div class="form-group">
                                 <input type="text" id="name" name="name" placeholder="Name" required class="form-control" style="width: 95%;">
                             </div>
@@ -182,11 +182,17 @@
 
                 </div>
             </div>
-
-
+          <%
+                String message = (String) request.getAttribute("message");
+                if (message == null) {
+                    // No message to display
+                } else {
+            %>
+            <p><%= message%></p>
+            <% } %>
             <%
-                String message = null;
-                // Handle form submission for adding a new meal
+               
+               
                 String name = request.getParameter("name");
                 String priceStr = request.getParameter("price");
                 String imageUrl = request.getParameter("image");
@@ -227,9 +233,6 @@
                 }
             %>
 
-            <% if (message != null) {%>
-            <p><%= message%></p>
-            <% } %>
             &nbsp;
             &nbsp;
             &nbsp;
