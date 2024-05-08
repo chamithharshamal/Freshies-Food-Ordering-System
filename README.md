@@ -32,7 +32,8 @@ Features 🌟
 •	Admin Panel: An admin panel to manage meals, users, and orders for seamless operation.
 
 
-![Screenshot 2024-05-01 204555](https://github.com/chamithharshamal/Freshies-Food-Ordering-System/assets/121401166/eafaaf8d-be32-43ab-a197-33f112da1efa)
+![Screenshot 2024-05-08 142132](https://github.com/chamithharshamal/Freshies-Food-Ordering-System/assets/121401166/cbac5229-2222-41f1-8b72-955716f84672)
+
 
 Installation Guide 🛠️
 
