@@ -12,124 +12,9 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Admin Dashboard</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+         <link rel="stylesheet" href="css/admin.css">
         <style>
-            body {
-                font-family: Arial, sans-serif;
-                background-color: #f2f2f2;
-                margin: 0;
-                padding: 0;
-            }
-
-            .container {
-                max-width: 1200px;
-                margin: 0 auto;
-                padding: 20px;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-            }
-
-            h2 {
-                text-align: center;
-                color: #84ac44;
-                margin-bottom: 30px;
-                font-size: 32px; 
-            }
-            form#logoutForm {
-                position: absolute;
-                top: 20px;
-                right: 20px;
-            }
-
-            button {
-                padding: 10px 20px;
-                background-color: #84ac44;
-                color: #fff;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-            }
-
-            button:hover{
-                background-color: #fdfdfd;
-                color: #000000;
-                border: 1px solid #000000;
-            }
-            .dashboard {
-                display: flex;
-                justify-content: center;
-                align-items: flex-start;
-                margin-top: 20px;
-            }
-
-            .sidebar {
-                background-color: #f4f4f4;
-                padding: 20px;
-                min-width: 30%;
-                border-radius: 10px;
-                margin-bottom: 20px;
-            }
-
-            .content {
-                width: 100%;
-                background-color: #fff;
-                border-radius: 10px;
-                padding: 20px;
-            }
-
-            .add-item-panel {
-                background-color: #f9f9f9;
-                padding: 20px;
-                border-radius: 5px;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                width: 400px;
-                max-width: 100%;
-            }
-
-            .form-group {
-                margin-bottom: 20px;
-            }
-
-            .form-control {
-                width: 100%;
-                padding: 10px;
-                border: 1px solid #ccc;
-                border-radius: 5px;
-            }
-            p {
-                color: #84ac44;
-                text-align: center;
-                margin-top: 20px;
-            }
-
-            table {
-                width: 80%;
-                border-collapse: collapse;
-                margin-bottom: 20px;
-                background-color: #fff;
-                border-radius: 8px;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            }
-
-            th, td {
-                border-bottom: 1px solid #ddd;
-                text-align: center;
-                padding: 10px;
-            }
-
-            th {
-                background-color: #84ac44;
-                color: #fff;
-            }
-
-            .td1{
-                padding: 25px;
-            }
-
-            tbody tr:hover {
-                background-color: #f2f2f2;
-            }
-
             .remove-btn {
                 background-color: #dc3545;
                 color: #fff;
@@ -149,9 +34,18 @@
             <form id="logoutForm" action="AdminLogoutServlet" method="post">
                 <button type="submit">Logout</button>
             </form>
-            <h2>Admin Dashboard</h2>
+           
             <div class="dashboard">
+                <div class="sidebar">
+                    <div class="menu">
+                        <div class="menu-item"><a href="#"><i class="fas fa-tachometer-alt"></i> DASHBOARD</a></div>
+                        <div class="menu-item"><a href="dashboard.jsp"><i class="fas fa-plus-circle"></i> Add Meal</a></div>
+                        <div class="menu-item"><a href="userDetails.jsp"><i class="fas fa-users"></i> Users</a></div>
+                        <div class="menu-item"><a href="orderDetails.jsp"><i class="fas fa-shopping-cart"></i> Orders</a></div>
+                    </div>
+                </div>
                 <div class="content">
+                    <h2>Admin Dashboard</h2>
                     <div class="add-item-panel">
                         <h3>Add a New Meal</h3>
                         <form method="post" action="AddMealServlet" enctype="multipart/form-data">
@@ -179,20 +73,20 @@
                             </div>
                         </form>
                     </div>
+                 
 
                 </div>
             </div>
-          <%
+            <%
                 String message = (String) request.getAttribute("message");
                 if (message == null) {
-                 
+
                 } else {
             %>
             <p><%= message%></p>
             <% } %>
             <%
-               
-               
+
                 String name = request.getParameter("name");
                 String priceStr = request.getParameter("price");
                 String imageUrl = request.getParameter("image");
@@ -236,39 +130,14 @@
             &nbsp;
             &nbsp;
             &nbsp;
-
-            <h3>Users</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th style="width: 30%;" >Username</th> 
-                        <th style="width: 30%;" >Email</th> 
-                        <th style="width: 20%;">Password</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <%-- Fetch users and iterate over them --%>
-                    <%
-                        freshies.dao.UserDao userDao = new freshies.dao.UserDao(freshies.connection.DbConnection.getConnection());
-                        java.util.List<freshies.model.User> userList = userDao.getAllUsers();
-                        for (freshies.model.User user : userList) {
-                    %>
-                    <tr>
-                        <td class="td1"><%= user.getName()%></td>
-                        <td class="td1"><%= user.getEmail()%></td>
-                        <td class="td1"><%= user.getPassword()%></td>
-                    </tr>
-                    <% } %>
-
-                </tbody>
-            </table>
-
-            <h3>User Products</h3>
-            <table>
+            &nbsp;
+            
+            <table style="margin-left:250px;">
                 <thead>
                     <tr>
                         <th style="width: 20%;">Meal ID</th> 
                         <th style="width: 30%;">Name</th> 
+                        <th style="width: 30%;">Image</th> 
                         <th style="width: 20%;">Price</th> 
                         <th style="width: 20%;">Action</th>
                     </tr>
@@ -283,6 +152,8 @@
                     <tr>
                         <td><%= meal.getId()%></td>
                         <td><%= meal.getName()%></td>
+                        <td><img src="<%= meal.getImage()%>" alt="<%= meal.getName()%>" style="width: 70px; height: 70px;"></td>
+
                         <td><%= meal.getPrice()%></td>
                         <td>
                             <form method="post" action="RemoveMealServlet">
@@ -299,5 +170,7 @@
                     %>
                 </tbody>
             </table>
+        </div>
+                <div>
     </body>
 </html>
