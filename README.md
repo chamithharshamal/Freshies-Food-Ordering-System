@@ -54,11 +54,11 @@ Host the HTML/CSS/JSP files on a web server or simply open them in a browser.
 
 Contributors 🙌
 
-•	Chamith Harshamal ([@chamithharshamal])
+•	Chamith Harshamal
 
 •	Tharuka Anjana
 
-•	Nimesh Wickramasinghe (@alexjohnson)
+•	Nimesh Wickramasinghe
 
 •	Chathura Karunaratna
 
